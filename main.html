@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colosal</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .mobile-only {
+      display: none;
+    }
+
+    .desktop-only {
+      display: none;
+    }
+
+    #pointer {
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: none;
+    }
+
+    #controller, #buttons-section {
+      margin-top: 50px;
+    }
+
+    .ready{
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      background: #f5f5f5;
+    }
+     .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #ccc url("https://via.placeholder.com/120") center/cover no-repeat;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .text {
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+    #controller {
+  width: 300px;
+  height: 600px;
+  background: #444;
+}
+.screen {
+  height: 50%;
+  background: black;
+}
+
+.controls {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.arrow {
+  width: 60px;
+  height: 60px;
+  background: #aaa;
+  clip-path: polygon(50% 0%, 100% 50%, 75% 50%, 75% 100%, 25% 100%, 25% 50%, 0% 50%);
+}
+
+.arrow.up { transform: rotate(0deg); }
+.arrow.down { transform: rotate(180deg); }
+.arrow.left { transform: rotate(-90deg); }
+.arrow.right { transform: rotate(90deg); }
+
+.middle-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.circle {
+  width: 60px;
+  height: 60px;
+  background: #aaa;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle::after {
+  content: '↺';
+  font-size: 24px;
+  color: white;
+}
+.btn-up{
+  background-color: #444;
+  border-radius: 6px;
+  border-color: aliceblue;
+}
+.btn-down{
+  background-color: #444;
+  border-radius: 6px;
+  border-color: aliceblue;
+}
+.btn-left{
+  background-color: #444;
+  border-radius: 6px;
+  border-color: aliceblue;
+}
+.btn-right{
+  background-color: #444;
+  border-radius: 6px;
+  border-color: aliceblue;
+}
+.btn-ent{
+  background-color: #444;
+  border-radius: 50px;
+  border-color: aliceblue;
+}
+/* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #9b59b6;
+      padding: 10px;
+    }
+
+    .nav-btn {
+      background: #6c2db5;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .nav-btn.grey { background: grey; }
+    .nav-btn.green { background: #9cff84; color: black; }
+    .nav-btn.small { background: #9b59b6; color: black; }
+
+    .profile {
+      background: #e056fd;
+      color: black;
+      padding: 10px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Main Content */
+    .main {
+      display: flex;
+      min-height: 400px;
+      gap: 20px;
+      padding: 20px;
+      background: #090097;
+      border-radius: 10px;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+
+    .video-Game {
+      flex: 2;
+      background: #5515c1;
+      padding: 20px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .discription-Game {
+      background: #5515c1;
+      padding: 30px;
+      min-height:250px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .star-rate {
+      background: #5515c1;
+      width: 100px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+    }
+
+    /* Game Section Wrapper for Vertical Scroll */
+    .game-section {
+      max-height: 300px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      }
+
+    .game-select-title {
+      padding: 10px 20px;
+      background: #2e0bb1;
+      display: inline-block;
+      margin-left: 20px;
+      border-radius: 6px;
+    }
+
+    .game-container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      background: #3a3a3a;
+      margin: 20px;
+      border-radius: 6px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+    }
+
+    .game-card {
+      background: #0a0097;
+      padding: 40px 20px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 100px;
+      min-height: 60px;
+      flex: 0 0 auto;
+      transition: transform 0.2s, outline 0.2s;
+    }
+
+    .game-card.selected {
+      outline: 4px solid yellow;
+      transform: scale(1.1);
+    }
+   
+  </style>
+</head>
+
+<body>
+
+  <div id="buttons-section">
+    <!-- Desktop -->
+    <button class="desktop-only" id="playNow">Start playing now</button>
+
+    <!-- Mobile -->
+    <div class="mobile-only" id="mobile-buttons">
+      <button id="play-browser">Play in the browser</button>
+      <button>Get the Colosal App</button>
+    </div>
+  </div>
+<!--playscreen on computer-->
+  <div id="play-screen" style="width:100%; height:100%; background:black; display:none;">
+    <h1 id="gameCode" style="display: none; color: azure;"></h1>
+    <div id="gameSelect" style="display: none; overflow-y: hidden;">
+      <!-- Top Navbar -->
+  <div class="navbar">
+    <button class="nav-btn">Myconsole</button>
+    <div class="nav-right">
+      <div class="profile">A</div>
+      <button class="nav-btn grey">Add more button</button>
+      <button class="nav-btn green" id="rooMcode" >CODE</button>
+      <button class="nav-btn small">Exit Button</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <div class="video-Game">GAME Video</div>
+    <div class="side">
+      <div class="discription-Game">Game discription</div>
+      <div class="star-rate">Star rating</div>
+    </div>
+  </div>
+
+  <!-- Game Section -->
+  <div class="game-select-title">Choose Game to play</div>
+  <div class="game-section" id="gameSection">
+    <div class="game-container" id="container1">
+      <div class="game-card">Game 1</div>
+      <div class="game-card">Game 2</div>
+      <div class="game-card">Game 3</div>
+    </div>
+    <div class="game-container" id="container2">
+      <div class="game-card">Game 14</div>
+      <div class="game-card">Game 15</div>
+    </div>
+    <div class="game-container" id="container3">
+      <div class="game-card">Game 124</div>
+      <div class="game-card">Game 125</div>
+    </div>
+    <div class="game-container" id="container4">
+      <div class="game-card">Game 12</div>
+      <div class="game-card">Game 24</div>
+      <div class="game-card">Game 32</div>
+    </div>
+    <div class="game-container" id="container5">
+      <div class="game-card">Game 31</div>
+      <div class="game-card">Game 244</div>
+      <div class="game-card">Game 33</div>
+    </div>
+  </div>
+    </div>
+  </div>
+<!--controllscreen on pho0ne-->
+  <div id="control-screen" style="width:100%; height:100%; display:none;">
+    <div id="eGc">
+    <h1 style="color: azure;">Enter Game Code</h1>
+    <input id="room-input" placeholder="Enter code">
+    <button id="join-btn">Join</button> 
+    </div> 
+
+  <div id="ready" style="display: none;">
+  <div class="profile-pic"></div>
+  <div class="text">Have everyone joined?</div>
+  <button class="btn" id="evEry">Yes, everyone joined</button>
+  </div>
+  
+  <div id="controller" style="display: none;">
+     <div class="screen"></div>
+    <div class="controls">
+      <button class="btn-up" onclick="sendToselec(`up`)"><div class="arrow up"></div></button>
+      <div class="middle-row">
+        <button class="btn-left" onclick="sendToselec(`left`)"><div class="arrow left"></div></button>
+        <button class="btn-ent circle" onclick="enterGame()"></button>
+        <button class="btn-right"onclick="sendToselec(`right`)"><div class="arrow right"></div></button>
+      </div>
+      <button class="btn-down"onclick="sendToselec(`down`)"><div class="arrow down"></div></button>
+    </div>
+  </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
